@@ -1,3 +1,5 @@
+//@ts-check
+
 const MORSE_TABLE = {
     '.-':     'a',
     '-...':   'b',
@@ -38,8 +40,38 @@ const MORSE_TABLE = {
 };
 
 function decode(expr) {
-    // write your solution here
-}
+    let result='';
+    let out='';
+    for (let i=0; i<expr.length; i=i+10){
+        let letter=expr.substr(i, 10);
+  
+        letter=letter.split('');
+        
+        for(let l=0; l<letter.length; l=l+2){
+            if(letter[l]=='*'){
+                result=result+' '
+                l=l+9;
+              }
+          else{
+            switch(letter[l]+letter[l+1]){
+              case '10':
+                out=out+'.';
+                break
+              case '11':
+                out=out+'-';
+                break
+              case '00':
+                break;
+            }
+          }
+  
+          
+        }
+        if(MORSE_TABLE[out]){result=result+MORSE_TABLE[out]}
+      out='';
+    }
+  return result;
+        }
 
 module.exports = {
     decode
